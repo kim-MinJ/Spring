@@ -1,0 +1,3 @@
+vs코드 확장프로그램
+spring boot extension pack 설치하기
+ 그럼 다른 확장프로그램3개 같이 깔림
