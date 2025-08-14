@@ -1,4 +1,4 @@
-package org.iclass.spring_3mybatis.dto;
+package org.iclass.spring_4restapi.dto;
 
 import java.sql.Date;
 
@@ -17,7 +17,7 @@ import lombok.ToString;
 public class CustomerDto {
     private final String customerId;
     private final String name;
-    private final String email; 
+    private final String email;
     private final Integer age; // int 로 하면 안되는 경우 : null 값이 있을때 (int에 저장 못합니다.)
     private final Date regDate;
 }

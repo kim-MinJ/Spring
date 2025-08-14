@@ -1,11 +1,11 @@
-package org.iclass.spring_3mybatis;
+package org.iclass.spring_4restapi;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.iclass.spring_3mybatis.dto.CustomerDto;
-import org.iclass.spring_3mybatis.mapper.BuyMapper;
-import org.iclass.spring_3mybatis.mapper.ProductMapper;
+import org.iclass.spring_4restapi.dto.CustomerDto;
+import org.iclass.spring_4restapi.mapper.BuyMapper;
+import org.iclass.spring_4restapi.mapper.ProductMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
-class Spring3mybatisApplicationTests {
+class Spring_4restapiApplicationTests {
 	// 단위 테스트 내용 : mapper 인터페이스의 구현체의 동작 확인.
 	// 참고 : 테스트 클래스는 필드 주입 사용합니다.
 	// 테스트 메소드는 success, fail 로 결과를 표시합니다.
@@ -41,6 +41,5 @@ class Spring3mybatisApplicationTests {
 	void mapper2() {
 		assertNotNull(productMapper);
 	}
-
 
 }

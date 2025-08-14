@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.iclass.spring_3mybatis.mapper.CustomerMapper">
+<mapper namespace="org.iclass.spring_4restapi.mapper.CustomerMapper">
 <!-- id는 sql 을 찾는 식별값. (개발자 정의)
 		id로 구별하는 것은 mapper 파일이 많을 때 어려움이 있습니다.
 		Mybatis-Spring 은 namespace 를 반드시 인터페이스의 "패키지이름.인터페이스이름" 로 합니다.
@@ -24,7 +24,7 @@
 	그 이후는 직접 필드명으로 접근해서 가져온다.  🔥 vo 클래스에 선언된 필드(변수)명을 매개변수 이름으로 '꼭' 합니다.
 	-->
 		insert into tbl_customer#(customer_id,name,email,age,reg_date) 
-                    values (#{customerId}, #{name}, #{email}, #{age}, sysdate)
+                    values (#{customerId}, #{name}, #{email, jdbcType=VARCHAR}, #{age, jdbcType=NUMERIC}, sysdate)
 	</insert>
 	<update id="update" parameterType="CustomerDto">
 		update tbl_customer#

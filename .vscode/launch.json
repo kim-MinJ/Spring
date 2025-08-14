@@ -9,6 +9,16 @@
             "projectName": "spring_1demo",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Spring3mybatisApplication<spring_3mybatis>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.iclass.spring_3mybatis.Spring3mybatisApplication",
+            "projectName": "spring_3mybatis",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

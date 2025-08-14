@@ -13,12 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 public class BuyConfig {
 
     @Primary // 타입 매핑으로 찾은 bean 이 2개 이상일 때, 우선 순위 bean설정
-    @Bean(name = "foodBean")
+    @Bean // (name = "foodBean")
     public List<String> list() {
         return List.of("라면", "과자", "탄산음료", "과일");
     }
 
-    @Bean(name = "drinkBean")
+    @Bean // (name = "drinkBean")
     public List<String> list2() {
         return List.of("콜라", "커피", "탄산수", "물");
     }

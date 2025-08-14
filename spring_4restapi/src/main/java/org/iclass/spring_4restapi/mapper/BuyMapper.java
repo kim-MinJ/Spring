@@ -1,14 +1,14 @@
-package org.iclass.spring_3mybatis.mapper;
+package org.iclass.spring_4restapi.mapper;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.iclass.spring_3mybatis.dto.BuyDto;
-import org.iclass.spring_3mybatis.dto.CustomerBuyDto;
+import org.iclass.spring_4restapi.dto.BuyDto;
+import org.iclass.spring_4restapi.dto.CustomerBuyDto;
 import org.springframework.stereotype.Component;
 
-@Mapper
+@Mapper // dao 역할을 하는 인터페이스
 public interface BuyMapper {
     List<BuyDto> selectByCustomer(String customer_id);
 

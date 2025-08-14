@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.iclass.spring_3mybatis.mapper.BuyMapper">
+<mapper namespace="org.iclass.spring_4restapi.mapper.BuyMapper">
   <!-- tbl_buy 테이블의 기본키는 buy_seq  -->
    <!-- join SQL, 집계 함수...... -->
     <!-- day5_(3)문제_select.sql 의 10번 -->
