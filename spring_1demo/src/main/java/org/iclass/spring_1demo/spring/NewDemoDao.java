@@ -10,7 +10,7 @@ public class NewDemoDao {
     private String message = "Hi, SpringBoot!!";
 
     public NewDemoDao() {
-        log.info("NewDemoService 생성자 - ", this.message);
+        log.info("NewDemoDao     생성자 - ", this.message);
     }
 
 }

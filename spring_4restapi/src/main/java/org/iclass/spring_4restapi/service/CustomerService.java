@@ -34,11 +34,14 @@ public class CustomerService {
         return mapper.selectByPk(customerid);
     }
 
+    // email. 과 age 를 모두 변경한다.
     public int changeInfo(CustomerDto dto) {
+        // 앞으로 메소드 이름은 특별한 경우 제외하고 mapper 메소드 이름으로 update
         return mapper.update(dto);
     }
 
-    public int remove(String customerid) {
+    // customerid 를 삭제한다.
+    public int removeCustomer(String customerid) {
         return mapper.delete(customerid);
     }
 }
