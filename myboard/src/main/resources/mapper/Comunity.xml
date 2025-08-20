@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.myclass.myboard.mapper.ComunityMapper">
+    <!-- 모두 불러오기(selectAll) -->
+     <select id="selectAll" resultType="ComunityDto">
+        select * from community order by idx
+     </select>
+
+    <!-- 글쓰기(insert) -->
+     <select id="insert" parameterType="ComunityDto">
+     insert into community(idx, writer, title, content, readcount, createDate, ip, commentCount)
+     values (#{idx}, #{writer}, #{title}, #{content}, #{readcount}, #{createDate}, #{ip}, #{commentCount})
+     </select>
+
+    <!-- 글목록 불러오기(searchAll) -->
+     <select id="searchAll" parameterType="String" resultType="ComunityDto">
+        select * from community
+        <where>
+            <if test="title !=null and title.trim() != ''">
+                and upper(title) like '%' || upper(#{title}) || '%'
+            </if>
+            <if test="writer !=null and writer.trim() != ''">
+                and upper(writer) like '%' || upper(#{writer}) || '%'
+            </if>
+            <if test="content !=null and content.trim() != ''">
+                and upper(content) like '%' || upper(#{content}) || '%'
+            </if>
+        </where>
+        order by idx
+     </select>
+
+    <!-- 글수정(update) -->
+     <select id="update" parameterType="ComunityDto">
+        update community set title = #{title}, content = #{content} where idx = #{idx}
+     </select>
+
+    <!-- 글삭제(delete) -->
+     <select id="delete" parameterType="ComunityDto">
+        delete from community where idx = #{idx}
+     </select>
+</mapper>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>main</title>
+</head>
+
+<body>
+    <h1>게시판 MAIN</h1>
+    <hr>
+    <h3>게시글</h3>
+    <hr>
+    <div>
+        <h3>검색창</h3>
+        <form action="searchAll" method="POST">
+            <div>
+                <label for="searchTitle">제목</label>
+                <input type="text" id="searchTitle" name="title"
+                    th:value="${ComunitySearchDto!=null? ComunitySearchDto.title : ''}" placeholder="제목">
+            </div>
+            <div>
+                <label for="searchWriter">작성자</label>
+                <input type="text" id="searchWriter" name="writer"
+                    th:value="${ComunitySearchDto!=null? ComunitySearchDto.writer : ''}" placeholder="작성자">
+            </div>
+            <div>
+                <label for="searchContent">내용</label>
+                <input type="text" id="searchContent" name="content"
+                    th:value="${ComunitySearchDto!=null? ComunitySearchDto.content : ''}" placeholder="내용">
+            </div>
+            <button> 검색 </button>
+            <button type="button" onclick="location.href='searchAll'">전체목록</button>
+        </form>
+    </div>
+    <table>
+        <tr>
+            <th>번호</th>
+            <th>작성자</th>
+            <th>제목</th>
+            <th>조회수</th>
+            <th>작성일자</th>
+            <th>ip</th>
+            <th>댓글수</th>
+        </tr>
+        <tr th:each="dto : ${list}">
+            <td th:text="${#numbers.formatCurrency(dto.idx)}"></td>
+            <td th:text="${dto.writer}"></td>
+            <td th:text="${dto.title}"></td>
+            <td th:text="${dto.readcount}"></td>
+            <td th:text="${dto.createDate}"></td>
+            <td th:text="${dto.ip}"></td>
+            <td th:text="${dto.commentCount}"></td>
+        </tr>
+    </table>
+</body>
+
+</html>
