@@ -11,12 +11,15 @@
 <body>
     <div class="container">
         <h1>Hello, world!</h1>
-
+        <h3>List :</h3>
+        <div>[[${requestDTO}]]</div>
+        <div> totalCount: [[${pageList.totalCount}]] , totalPages: [[${pageList.totalPages}]],
+            startPage: [[${pageList.startPage}]], endPage: [[${pageList.endPage}]]</div>
         <hr>
         <div class="row">
             <div class="col-auto">
-                <a th:href="write" class="btn btn-primary">글쓰기</a>
-                <!-- <a th:href="|javascript:write()|" class="btn btn-primary">글쓰기</a> -->
+                <!--             <a th:href="@{write}" class="btn btn-primary">글쓰기</a> -->
+                <a th:href="|javascript:write()|" class="btn btn-primary">글쓰기</a>
                 <a href="/" class="btn btn-primary">HOME</a>
             </div>
             <script type="text/javascript">
@@ -50,14 +53,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="dto : ${list}">
+                            <tr th:each="dto : ${pageList.list}">
                                 <td>[[${dto.idx}]]</td>
                                 <td>
                                     <!--검색 기능 (예정) : 글읽기 페이지에서 목록 클릭했을 때
                                            검색이 풀리면 안됩니다. 검색 페이지가 유지시켜주기 위함
                             -->
                                     <a class="link-offset-2 link-underline link-underline-opacity-0"
-                                        th:href="|@{read?idx=}${dto.idx}|">[[${dto.title}]]</a>
+                                        th:href="|@{read?idx=}${dto.idx}&page=${page}|">[[${dto.title}]]</a>
                                     <span class="badge"
                                         style="background-color: #bebebf;color:#6f42c1;font-size:0.7rem;">
                                         [[${dto.commentCount}]]</span>
@@ -67,7 +70,8 @@
                                 <td>
                                     <!-- 작성날짜를 yyyy-MM-dd 문자열로 변환해서 저장. -->
                                     <th:block th:with="temp=${#dates.format(dto.createdAt,'yyyy-MM-dd')}">
-                                        <!-- 오늘 이전에 작성한 글은 날짜로 표시. 문자열 비교 -->
+                                        <!-- 오늘 이전에 작성한 글은 날짜로 표시. 문자열 비교
+                                         today 는 컨트롤러가 전달한 애트리뷰트 -->
                                         <span th:if="${#strings.equals(temp,today)}">
                                             [[${#dates.format(dto.createdAt,'HH:mm')}]]
                                         </span>
@@ -80,7 +84,27 @@
                             </tr>
                         </tbody>
                     </table>
-
+                    <div class="d-flex justify-content-center">
+                        <ul class="pagination flex-wrap">
+                            <!-- 1페이지로 이동 : 현재 URL list 와 같으므로 생략할 수 있습니다.
+                             href="list?page=1" 을 href="?page=1" 로 합니다. -->
+                            <li><a href="list?page=1" class="btn">&lt;&lt;</a></li>
+                            <!-- 앞 단계 페이지 목록 이동 -->
+                            <li><a class="btn" th:href="|@{list?page=}${pageList.startPage-1}|"
+                                    th:style="${pageList.startPage==1 } ? 'display:none;' : ''">&lt;</a></li>
+                            <li><span th:each="i : ${#numbers.sequence(pageList.startPage, pageList.endPage) }">
+                                    <a th:class="${page == i}? 'btn text-primary':'btn'" th:href="|@{list?page=}${i}|">
+                                        [[${i}]]</a>
+                                </span>
+                            </li>
+                            <!-- 다음 단계 페이지 목록 이동 -->
+                            <li><a class="btn" th:href="|@{list?page=}${pageList.endPage+1}|"
+                                    th:style="${pageList.endPage>=pageList.totalPages } ? 'display:none;' : '' ">&gt;</a>
+                            </li>
+                            <!-- 마지막 페이지로 이동 -->
+                            <li><a th:href="|@{list?page=}${pageList.totalPages}|" class="btn">&gt;&gt;</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
