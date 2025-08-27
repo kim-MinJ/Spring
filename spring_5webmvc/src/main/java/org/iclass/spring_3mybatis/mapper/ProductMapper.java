@@ -6,22 +6,20 @@ import org.apache.ibatis.annotations.Mapper;
 import org.iclass.spring_3mybatis.dto.ProductDto;
 import org.iclass.spring_3mybatis.dto.ProductSearchDto;
 
-@Mapper // 설정의 xml 파일로 구현체 정의합니다. -> 빈 생성
+@Mapper // 설정의 xml 파일로 구현체 정의합니다.-> 빈 생성
 public interface ProductMapper {
+  ProductDto selectByPk(String pcode);
 
-    List<ProductDto> selectByKeyword(String keyword);
+  List<ProductDto> selectByKeyword(String keyword);
 
-    ProductDto selectByPk(String pcode);
+  List<ProductDto> selectAll();
 
-    List<ProductDto> selectAll();
+  int insert(ProductDto dto);
 
-    int insert(ProductDto dto);
+  int update(ProductDto dot);
 
-    int update(ProductDto dto);
+  int delete(String pcode);
 
-    int delete(String pcode);
-
-    // 검색 필드값 저장한 SearchDto 를 SQL 에 전달
-    List<ProductDto> searchAll(ProductSearchDto dto);
-
+  // 검색 필드값 저장한 SearchDto 를 SQL 에 전달
+  List<ProductDto> searchAll(ProductSearchDto dto);
 }

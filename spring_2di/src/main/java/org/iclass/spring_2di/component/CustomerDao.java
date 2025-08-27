@@ -9,10 +9,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class CustomerDao {
-    private List<String> groups;
+  private List<String> groups;
 
-    public void setGroups() {
-        this.groups = List.of("user", "admin", "manager");
-        log.info("CustomerDao setter - groups : {}", groups.toString());
-    }
+  public void setGroups() {
+    this.groups = List.of("user", "admin", "manager");
+    log.info("CustomerDao setter - groups : {} ", groups.toString());
+  }
+
+  
+
 }

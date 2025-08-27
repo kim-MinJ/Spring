@@ -42,15 +42,13 @@
 						<div class="input-group">
 							<span class="input-group-text col-2">제목</span>
 							<label class="col-10">
-								<input name="title" class="form-control" th:value="${dto.title}"
-									placeholder="제목을 입력하세요.">
+								<input name="title" class="form-control" th:value="${dto.title}" placeholder="제목을 입력하세요.">
 							</label>
 						</div>
 						<div class="input-group">
 							<span class="input-group-text col-2">작성날짜</span>
 							<label class="col-10">
-								<input name="title" class="form-control"
-									th:value="${#dates.format(dto.createdAt,'yyyy-MM-dd HH:mm')}"
+								<input name="title" class="form-control" th:value="${#dates.format(dto.createdAt,'yyyy-MM-dd HH:mm')}"
 									placeholder="제목을 입력하세요.">
 							</label>
 						</div>
@@ -92,7 +90,6 @@
 				<h4>댓글
 					<span class="badge" style="background-color: #bebebf;color:#6f42c1;font-size:0.7rem;">
 						[[${dto.commentCount}]]</span>
-					<span id="content-error" class="errorMsg" style="color:red; font-size:15px;"></span>
 				</h4>
 				<div class="row mt-3">
 					<!-- 댓글 쓰기 -->
@@ -100,21 +97,20 @@
 						<input type="hidden" id="writer" th:value="${session.username}">
 						<input type="hidden" id="mref" th:value="${dto.idx}">
 						<div class="input-group mb-3">
-							<!-- input : single line, textarea : multi line -->
+							<!-- input : single line , textarea : multi line -->
 							<textarea class="form-control" rows="5" id="content"></textarea>
-							<!-- 로그인 상태 ⭕ : 저장 버튼 -->
+							<!-- 로그인 상태 ⭕: 저장 버튼 -->
 							<th:block th:if="${session.username !=null}">
 								<button type="button" class="btn btn-outline-secondary" id="btnSave">저장</button>
 							</th:block>
-							<!-- 로그인 상태 ❌ : 로그인 버튼 -->
+							<!-- 로그인 상태 ❌: 로그인 버튼 -->
 							<th:block th:unless="${session.username !=null}">
 								<button type="button" class="btn btn-outline-secondary" id="btnLogin">로그인</button>
 							</th:block>
 						</div>
 					</div>
-
 					<hr />
-					<!-- 이 글의 idx 로 조회한 댓글 목록이 출력됩니다. : 자바스크립트에서 요청, 처리-->
+					<!-- 이 글의 idx 로 조회한 댓글 목록이 출력됩니다. : 자바스크립트에서 합니다.-->
 					<ul class="list-group myfs-9" id="replyList">
 						<li class="list-group-item d-flex">
 							<span class="col-5 myfc-1">${dto.writer}</span>
@@ -133,12 +129,15 @@
 			</div>
 		</div>
 	</div>
-	<div></div>
+	<div>............</div>
+	<div>............</div>
+	<div>............</div>
+	<div>............</div>
 	<script>
-		// comment.js 는 프론트엔드 정적 리소스 이므로 백엔드 세션값을 직접 가져갈 수 없습니다.
+		// comments.js 는 프론트엔드 정적 리소스 이므로 백엔드 세션값을 직접 가져갈 수 없습니다.
 		// 백엔드 타임리프 html 의 script 태그는 가능합니다. comments.js 가 사용할 수 있게 변수 값 할당.
 		const username = '[[${session.username}]]'
-		const mref = '[[${dto.idx}]]'  // 모든 댓글의 mref
+		const mref = '[[${dto.idx}]]'         // 모든 댓글의 mref
 	</script>
 	<script src="/js/comments.js"></script>
 </body>

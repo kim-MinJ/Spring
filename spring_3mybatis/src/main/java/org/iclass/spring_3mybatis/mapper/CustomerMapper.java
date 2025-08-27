@@ -5,17 +5,16 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.iclass.spring_3mybatis.dto.CustomerDto;
 
-//@Component // 이 어노테이션은 bean 은 만들지만 sql 매퍼 구현체는 아닙니다.
+// @Component    // 이 어노테이션은 bean 은 만들지만 sql 매퍼 구현체는 아닙니다.
 @Mapper
 public interface CustomerMapper {
-    CustomerDto selectByPk(String customer_id);
+  CustomerDto selectByPk(String customerid);
 
-    List<CustomerDto> selectAll();
+  List<CustomerDto> selectAll();
 
-    int insert(CustomerDto dto);
+  int insert(CustomerDto dto);
 
-    int update(CustomerDto dto);
+  int update(CustomerDto dto);
 
-    int delete(String customer_id);
-
+  int delete(String customerid);
 }

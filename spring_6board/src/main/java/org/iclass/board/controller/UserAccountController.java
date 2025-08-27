@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 @Controller
-@SessionAttributes({ "referer" }) // 로그인 후 돌아갈 페이지 세션 저장
+@SessionAttributes(names = { "referer" }) // 로그인 후 돌아갈 페이지 세션 저장
 public class UserAccountController {
 	private final UserAccountService service;
 
@@ -44,18 +44,20 @@ public class UserAccountController {
 		if (account != null) {
 			// ★★★★★★★ 로그인기능-세션활용
 			session.setAttribute("username", account.getUserid());
-			session.setAttribute("sessionId", session.getId()); // 비동기 요청에 사용
-			if (referer.contains("/login"))
+			session.setAttribute("sessionId", session.getId());
+			// 비동기 요청에 사용할 수 있음. session 식별을 위한 JSESSIONID 값
+			if (referer.contains("/login")) // 다시 로그인 페이지로 가는 경우를 방지
 				referer = "/";
 			return "redirect:" + referer; // 저장되 세션 애트리뷰트 referer 로 리다이렉트
 		} else { // 로그인 실패
 			reAttr.addFlashAttribute("fail", "y");
 			// ㄴ login.html (화면) 으로 직접 전달하는 값
+			// ㄴ addFlashAttribute : url 에 보이지않는 애트리뷰트 저장
 			return "redirect:login";
 		}
 	}
 
-	@GetMapping("/logout")
+	@PostMapping("/logout")
 	public String logout(HttpSession session, RedirectAttributes reAttr) {
 		session.invalidate();
 		reAttr.addFlashAttribute("message", "로그 아웃 했습니다.");

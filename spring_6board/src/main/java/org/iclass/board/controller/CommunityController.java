@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
@@ -31,46 +32,6 @@ public class CommunityController {
 		log.info("오늘 날짜 : {}", LocalDate.now());
 		model.addAttribute("today", LocalDate.now());
 		return "community/list"; // community 폴더안에 list.html
-	}
-
-	// 글 수정
-	@GetMapping("/community/modify")
-	public String modify(int idx, int page, Model model, HttpSession session) throws IllegalAccessException {
-		String username = (String) session.getAttribute("username");
-		CommunityDTO dto = service.read(idx, false);
-		// 권한 검사 : 글작성자와 로그인사용자 비교
-		if (!dto.getWriter().equals(username)) {
-			throw new IllegalAccessException();
-		}
-
-		model.addAttribute("dto", service.read(idx, false));
-		model.addAttribute("page", page);
-		return "community/modify"; // write.html 활용
-	}
-
-	// 수정할 내용 저장
-	@PostMapping("/community/modify")
-	public String modify(CommunityDTO dto, int page, RedirectAttributes reAttr) {
-		log.info("modify dto : {}", dto);
-		service.save(dto);
-		reAttr.addAttribute("idx", dto.getIdx());
-		reAttr.addAttribute("page", page);
-		return "redirect:/community/read";
-	}
-
-	// 글 삭제
-	@GetMapping("/community/remove")
-	public String remove(int idx, int page, RedirectAttributes reAttr, HttpSession session)
-			throws IllegalAccessException {
-		String username = (String) session.getAttribute("username");
-		CommunityDTO dto = service.read(idx, false);
-		// 권한 검사
-		if (!dto.getWriter().equals(username)) {
-			throw new IllegalAccessException();
-		}
-		service.remove(idx);
-		reAttr.addAttribute("page", page);
-		return "redirect:list";
 	}
 
 	// 글 읽기
@@ -103,4 +64,51 @@ public class CommunityController {
 		service.write(dto);
 		return "redirect:list";
 	}
+
+	// 글 수정
+	@GetMapping("/community/modify")
+	public String modify(int idx,
+			@SessionAttribute(required = false) String username,
+			Model model) throws IllegalAccessException {
+		CommunityDTO dto = service.read(idx, false); // 글 수정은 조회수 카운트 안함
+		// 글번호 idx 의 작성자와 세션의 username 과 동일한지 비교
+		log.info("username : {}", username);
+		if (!dto.getWriter().equals(username)) {
+			throw new IllegalAccessException("잘못된 접근입니다.");
+		}
+		model.addAttribute("dto", dto);
+		return "community/modify"; // write.html 동일한 css 활용
+	}
+
+	// 수정할 내용 저장
+	@PostMapping("/community/modify")
+	public String modify(CommunityDTO dto,
+			@SessionAttribute String username,
+			RedirectAttributes reAttr) throws IllegalAccessException {
+		// 글번호 idx 의 작성자와 세션의 username 과 동일한지 비교
+		log.info("username : {}", username);
+		if (!service.read(dto.getIdx(), false).getWriter().equals(username)) {
+			throw new IllegalAccessException("잘못된 접근입니다.");
+		}
+
+		log.info("modify dto : {}", dto);
+		service.save(dto);
+		reAttr.addAttribute("idx", dto.getIdx()); // redirect 할때 애트리뷰트(파라미터) 저장
+		// 수정한 글 저장 상태 확인
+		// return "redirect:read?idx="+ dto.getIdx();
+		return "redirect:read";
+	}
+
+	// 글 삭제
+	@GetMapping("/community/remove")
+	public String remove(int idx,
+			@SessionAttribute(required = false) String username,
+			RedirectAttributes reAttr) throws IllegalAccessException {
+		if (!service.read(idx, false).getWriter().equals(username)) {
+			throw new IllegalAccessException("잘못된 접근입니다.");
+		}
+		service.remove(idx);
+		return "redirect:list";
+	}
+
 }

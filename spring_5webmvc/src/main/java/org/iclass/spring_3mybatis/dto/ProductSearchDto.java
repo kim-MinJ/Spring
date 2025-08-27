@@ -10,9 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class ProductSearchDto {
-    // 검색 그룹안에 있는 항목으로 팔드 정의
-    private String pname;
-    private String pcode;
-    private Integer minPrice;
-    private Integer maxPrice;
+  // 검색 그룹안에 있는 항목으로 필드 정의
+  private String pname;
+  private String pcode;
+  private Integer minPrice;
+  private Integer maxPrice;
+
 }
