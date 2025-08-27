@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UsersService {
   private UsersRepository usersRepository;
 
-  // 시큐리티가 만든 bean : 패스워드 인코딩(해쉬함수로 생성하는 암호)
+  // 시큐리티가 만든 bean : 패스워드 인코딩(해시함수로 생성하는 암호)
   private PasswordEncoder passwordEncoder;
 
   public void register(UsersDTO dto) {

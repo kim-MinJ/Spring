@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @SessionAttributes(names = { "referer" }) // 로그인 후 돌아갈 페이지 세션 저장
-public class UserAccountController {
+public class UserAccountController {	
 	private final UserAccountService service;
 
 	@GetMapping("login")
